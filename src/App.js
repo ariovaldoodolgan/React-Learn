@@ -19,23 +19,33 @@ class App extends Component {
         data: new Date(2022, 2, 5),
         mensagem: "Como vai você?"
       }
-    ]
+    ],
+    novoComentario: {
+      nome: '',
+      email: '',
+      mensagem: ''
+    }
   }
 
-  adicionarComentario = () => {
-    const novoComentario = {
-      nome: "Joana",
-      email: "joana@email.com",
-      data: new Date(2022, 2, 5),
-      mensagem: "METEU ESSA?"
-    }
+  adicionarComentario = event => {
 
-    this.setState({comentarios: [ ...this.state.comentarios, novoComentario]});
+    event.preventDefault();
+
+    const novoComentario = { ...this.state.novoComentario, data: new Date() }
+    this.setState({
+      comentarios: [ ...this.state.comentarios, novoComentario],
+      novoComentario: { nome: '', email: '', mensagem: '' }
+    });
+  }
+
+  digitacaoInput = event => {
+    const { value, name } = event.target;
+    this.setState({ novoComentario: { ...this.state.novoComentario, [name]: value } });
   }
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <h1>Meu projeto</h1>
         {this.state.comentarios.map((comentario, index) => (
           <Comentario
@@ -47,7 +57,19 @@ class App extends Component {
           </Comentario>
         ))}
 
-          <button onClick={this.adicionarComentario}>Adicionar umn comentariuo</button>
+        <form method='post' onSubmit={this.adicionarComentario}>
+          <h2>Adicionar Comentário</h2>
+          <div>
+            <input type='text' name='nome' value={this.state.novoComentario.nome} onChange={this.digitacaoInput} placeholder='digite seu nome'></input>
+          </div>
+          <div>
+            <input type='email' name='email' value={this.state.novoComentario.email} onChange={this.digitacaoInput} placeholder='Digite seu e-mail'></input>
+          </div>
+          <div>
+            <textarea type='text' name='mensagem' value={this.state.novoComentario.mensagem} onChange={this.digitacaoInput} rows='4'/>
+          </div>
+          <button type='submit'>Adicionar Comentário</button>
+        </form>
       </div>
     ); 
   }
