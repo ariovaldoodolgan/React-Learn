@@ -10,13 +10,13 @@ class App extends Component {
       {
         nome: "João",
         email: "joao@email.com",
-        data: new Date(2022, 2, 5),
+        data: new Date(2022, 1, 4, 13, 30, 0),
         mensagem: "Olá, tudo bem?"
       },
       {
         nome: "Maria",
         email: "maria@email.com",
-        data: new Date(2022, 2, 5),
+        data: new Date(2022, 1, 3, 12, 15, 0),
         mensagem: "Como vai você?"
       }
     ],
@@ -64,7 +64,7 @@ class App extends Component {
           </Comentario>
         ))}
 
-        <form method='post' onSubmit={this.adicionarComentario}>
+        <form className='Novo-Comentario' method='post' onSubmit={this.adicionarComentario}>
           <h2>Adicionar Comentário</h2>
           <div>
             <input type='text' name='nome' value={this.state.novoComentario.nome} onChange={this.digitacaoInput} placeholder='digite seu nome'></input>
